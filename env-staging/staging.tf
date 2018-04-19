@@ -29,7 +29,7 @@ module "kafka" {
     private_key = "~/Downloads/keylimepie.pem"
 
     # Kafka cluster configuration
-    key_name = "keylimepie"
+    key_name = "saurabh-throwaway"
     kafka_ami = "ami-1853ac65"
     kafka_instance_type = "m5.large"
     kafka_version = "1.1.0"
