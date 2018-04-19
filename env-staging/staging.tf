@@ -48,12 +48,9 @@ module "kafka" {
     cloudwatch_alarm_arn = "arn:aws:sns:us-east-1:489114792760:Kafka"
 }
 
-module "nrc" {
-    source = "../modules/nrc"
-
-    environment = "staging"
-
-    nrc_instance_count = 1
-    docker_image_tag = "staging"
-    kafka_brokers = "${module.kafka.first_kafka_broker}"
-}
+# module "nrc" {
+#     source = "../modules/nrc"
+#     environment = "staging"
+#     nrc_instance_count = 1
+#     docker_image_tag = "consumer_groups"
+#     kafka_brokers = "${module.kafka.first_kafka_broker}"
