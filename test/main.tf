@@ -65,6 +65,5 @@ module "kafka" {
   bastion_ip              = "${module.network.bastion_ips[0]}"
   bastion_user            = "${var.user}"
   private_key             = "${var.private_key_path}"
-  bastion_private_key     = "${var.bastion_private_key_path}"
   cloudwatch_alarm_arn    = "${var.cloudwatch_alarm_arn}"
 }
