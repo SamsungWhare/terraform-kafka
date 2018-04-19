@@ -24,9 +24,9 @@ module "kafka" {
 
     # Bastion machine information where the SSH can happen
     bastion_ip = "35.171.26.242"
-    bastion_private_key = "~/.ssh/id_rsa"
+    bastion_private_key = ""
     bastion_user = "ec2-user"
-    private_key = "~/.ssh/id_rsa"
+    private_key = ""
 
     # Kafka cluster configuration
     key_name = "saurabh-throwaway"
