@@ -12,10 +12,10 @@ resource "null_resource" "zookeeper-nodes" {
   connection {
     host                = "${element(aws_instance.zookeeper-server.*.private_ip, count.index)}"
     user                = "${var.zookeeper_user}"
-    private_key         = "${file(var.private_key)}"
+    private_key         = "${var.private_key}"
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_user}"
-    bastion_private_key = "${file(var.bastion_private_key)}"
+    bastion_private_key = "${var.bastion_private_key}"
   }
 
   provisioner "file" {
@@ -65,10 +65,10 @@ resource "null_resource" "kafka-nodes" {
   connection {
     host                = "${element(aws_instance.kafka-server.*.private_ip, count.index)}"
     user                = "${var.kafka_user}"
-    private_key         = "${file(var.private_key)}"
+    private_key         = "${var.private_key}"
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_user}"
-    bastion_private_key = "${file(var.bastion_private_key)}"
+    bastion_private_key = "${var.bastion_private_key}"
   }
 
   provisioner "file" {
