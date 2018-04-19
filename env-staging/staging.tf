@@ -24,7 +24,6 @@ module "kafka" {
 
     # Bastion machine information where the SSH can happen
     bastion_ip = "35.171.26.242"
-    bastion_private_key = ""
     bastion_user = "ec2-user"
     private_key = ""
 
