@@ -98,11 +98,6 @@ variable "ebs_volume_ids" {
   default     = []
 }
 
-variable "ebs_attachment_strategy" {
-  type = "string"
-  description = "which volume attachment method to use"
-}
-
 variable "num_partitions" {
   description = "number of partitions per topic"
   default     = 1

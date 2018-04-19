@@ -58,7 +58,7 @@ resource "null_resource" "kafka-nodes" {
   depends_on = ["null_resource.zookeeper-nodes"]
 
   triggers {
-    kafka_attach_id = "$(element(var.ebs_attachment_strategy, count.index)}"
+    kafka_attach_id = "$(element(aws_volume_attachment.ebs.*.id, count.index)}"
     zookeeper_id    = "${join(",", null_resource.zookeeper-nodes.*.id)}"
   }
 

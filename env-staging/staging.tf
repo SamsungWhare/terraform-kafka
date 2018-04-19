@@ -27,7 +27,6 @@ module "kafka" {
     private_key = "~/Downloads/keylimepie.pem"
 
     # Kafka cluster configuration
-    ebs_attachment_strategy = "aws_volume_attachment.staging.*.id"
     key_name = "keylimepie"
     kafka_ami = "ami-1853ac65"
     kafka_instance_type = "m5.large"
@@ -45,4 +44,12 @@ module "kafka" {
 
     # Cloudwatch SNS Topic Notification
     cloudwatch_alarm_arn = "arn:aws:sns:us-east-1:489114792760:Kafka"
+}
+
+module "nrc" {
+    source = "../modules/nrc"
+
+    nrc_instance_count = 1
+    docker_image_tag = "consumer_groups"
+    kafka_brokers = "${module.kafka.first_kafka_broker}"
 }
