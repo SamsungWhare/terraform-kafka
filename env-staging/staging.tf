@@ -6,6 +6,8 @@ data "aws_availability_zone" "staging" {
     name = "us-east-1a" 
 }
 
+# variable "environment" {}
+
 module "kafka" {
     source = "../modules/kafka"
 
@@ -38,7 +40,7 @@ module "kafka" {
 
     # Zookeeper configuration
     zookeeper_instance_type = "t2.medium"
-    zookeeper_addr = 10
+    zookeeper_addr = 50                 //// <--- need to figure out a way to change dynamically
     zookeeper_ami = "ami-1853ac65"
     zookeeper_user = "ec2-user"
 
@@ -49,7 +51,9 @@ module "kafka" {
 module "nrc" {
     source = "../modules/nrc"
 
+    environment = "staging"
+
     nrc_instance_count = 1
-    docker_image_tag = "consumer_groups"
+    docker_image_tag = "staging"
     kafka_brokers = "${module.kafka.first_kafka_broker}"
 }

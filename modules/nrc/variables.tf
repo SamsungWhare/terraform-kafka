@@ -16,3 +16,8 @@ variable "kafka_brokers" {
   type        = "string"
   description = "list of kafka brokers exported by the kafka module"
 }
+
+variable "environment" {
+  type        = "string"
+  description = "prod | staging"
+}
