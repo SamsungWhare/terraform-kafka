@@ -6,6 +6,8 @@ data "aws_availability_zone" "staging" {
     name = "us-east-1a" 
 }
 
+# variable "environment" {}
+
 module "kafka" {
     source = "../modules/kafka"
 
@@ -27,7 +29,6 @@ module "kafka" {
     private_key = "~/Downloads/keylimepie.pem"
 
     # Kafka cluster configuration
-    ebs_attachment_strategy = "aws_volume_attachment.staging.*.id"
     key_name = "keylimepie"
     kafka_ami = "ami-1853ac65"
     kafka_instance_type = "m5.large"
@@ -39,10 +40,20 @@ module "kafka" {
 
     # Zookeeper configuration
     zookeeper_instance_type = "t2.medium"
-    zookeeper_addr = 10
+    zookeeper_addr = 50                 //// <--- need to figure out a way to change dynamically
     zookeeper_ami = "ami-1853ac65"
     zookeeper_user = "ec2-user"
 
     # Cloudwatch SNS Topic Notification
     cloudwatch_alarm_arn = "arn:aws:sns:us-east-1:489114792760:Kafka"
+}
+
+module "nrc" {
+    source = "../modules/nrc"
+
+    environment = "staging"
+
+    nrc_instance_count = 1
+    docker_image_tag = "staging"
+    kafka_brokers = "${module.kafka.first_kafka_broker}"
 }
