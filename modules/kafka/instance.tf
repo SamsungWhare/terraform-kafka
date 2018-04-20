@@ -8,7 +8,6 @@ resource "aws_instance" "zookeeper-server" {
   instance_type          = "${var.zookeeper_instance_type}"
   vpc_security_group_ids = ["${var.security_group_ids}"]
   subnet_id              = "${var.static_subnet_ids[count.index]}"
-  # private_ip             = "${cidrhost(element(data.aws_subnet.static-subnet.*.cidr_block, count.index), var.zookeeper_addr)}"
   iam_instance_profile   = "${var.iam_instance_profile}"
   key_name               = "${var.key_name}"
 
