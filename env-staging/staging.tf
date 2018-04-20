@@ -2,11 +2,24 @@ provider "aws" {
   region = "us-east-1"
 }
 
-variable "private_key" { default = "\~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905" }
-variable "key_name"    { default = "saurabh-throwaway" }
-variable "bastion_ip"  { default = "54.210.22.199" }
+variable "private_key" {
+    type        = "string"
+    default     = "~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905" 
+}
 
-variable image_tag   { default = "consumer_groups" }
+variable "key_name"    {
+    type        = "string"
+    default     = "saurabh-throwaway" 
+}
+variable "bastion_ip"  {
+    type        = "string"
+    default     = "54.210.22.199" 
+}
+
+variable "image_tag"   {
+    type        = "string"
+    default     = "consumer_groups" 
+}
 
 module "kafka" {
     source = "../modules/kafka"
