@@ -122,7 +122,7 @@ EOF
 
 resource "aws_iam_instance_profile" "ingest" {
   name = "ingest_profile"
-  roles = ["${aws_iam_role.ecs_ingest.name}"]
+  role = "${aws_iam_role.ecs_ingest.name}"
 }
 
 data "aws_security_group" "ecs_nrc" {

@@ -9,37 +9,41 @@ variable "environment" {
 
 variable "app_name" {
   description = "application name"
-  default     = "infra"
+  default     = "kafka"
 }
 
 variable "availability_zone" {
   type        = "string"
   description = "specific availability zone"
+  default     = "us-east-1a"
 }
 
 variable "brokers_per_az" {
   description = "number of Kafka brokers per AZ"
-  default     = 1
+  default     = 3
 }
 
-variable "zookeeper_addr" {
-  type        = "string"
-  description = "network number for zookeeper IPs"
-}
+# variable "zookeeper_addr" {
+#   type        = "string"
+#   description = "network number for zookeeper IPs"
+# }
 
 variable "zookeeper_ami" {
   type        = "string"
   description = "AWS AMI for zookeeper"
+  default     = "ami-1853ac65"
 }
 
 variable "zookeeper_user" {
   type        = "string"
   description = "user in zookeeper AMI"
+  default     = "ec2-user"
 }
 
 variable "zookeeper_instance_type" {
   type        = "string"
   description = "instance type for zookeeper server"
+  default     =  "t2.medium"
 }
 
 variable "zookeeper_version" {
@@ -55,21 +59,24 @@ variable "zookeeper_repo" {
 variable "kafka_ami" {
   type        = "string"
   description = "AWS AMI for kafka"
+  default     = "ami-1853ac65"
 }
 
 variable "kafka_user" {
   type        = "string"
   description = "user in kafka AMI"
+  default     = "ec2-user"
 }
 
 variable "kafka_instance_type" {
   type        = "string"
   description = "instance type for kafka server"
+  default     = "m5.large"
 }
 
 variable "kafka_version" {
   description = "Kafka version"
-  default     = "0.11.0.0"
+  default     = "1.1.0"
 }
 
 variable "scala_version" {
@@ -100,7 +107,7 @@ variable "ebs_volume_ids" {
 
 variable "num_partitions" {
   description = "number of partitions per topic"
-  default     = 1
+  default     = 3
 }
 
 variable "log_retention" {
@@ -111,21 +118,25 @@ variable "log_retention" {
 variable "subnet_ids" {
   type        = "list"
   description = "list of subnet IDs"
+  default     = ["subnet-c19f3bee"]
 }
 
 variable "static_subnet_ids" {
   type        = "list"
   description = "list of subnet IDs for static IPs (/24 CIDR)"
+  default     = ["subnet-c19f3bee"]
 }
 
 variable "security_group_ids" {
   type        = "list"
   description = "list of security group IDs"
+  default     = ["sg-8ca35bc5"]
 }
 
 variable "iam_instance_profile" {
   type        = "string"
   description = "IAM instance profile"
+  default     = "OpsTools"
 }
 
 variable "key_name" {
@@ -141,14 +152,17 @@ variable "private_key" {
 variable "bastion_ip" {
   type        = "string"
   description = "bastion IP address for ssh access"
+  default     = "54.210.22.199"
 }
 
 variable "bastion_user" {
   type        = "string"
   description = "user on bastion server"
+  default     = "ec2-user"
 }
 
 variable "cloudwatch_alarm_arn" {
   type        = "string"
   description = "cloudwatch alarm ARN"
+  default     = "arn:aws:sns:us-east-1:489114792760:Kafka"
 }
