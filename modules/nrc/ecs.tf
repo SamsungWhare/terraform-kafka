@@ -70,11 +70,6 @@ data "aws_iam_role" "ecs_ingest" {
   name = "ecs_ingest"
 }
 
-resource "aws_iam_instance_profile" "ingest" {
-  name = "ingest_profile"
-  role = "${data.aws_iam_role.ecs_ingest.name}"
-}
-
 data "aws_security_group" "ecs_nrc" {
   id = "sg-7789513e"
 }
