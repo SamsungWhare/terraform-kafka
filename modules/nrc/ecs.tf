@@ -2,10 +2,6 @@ resource "aws_ecs_cluster" "nrc" {
   name = "nrc-${var.environment}-${terraform.workspace}"
 }
 
-# data "aws_ecs_task_definition" "nrc" {
-#   task_definition = "${aws_ecs_task_definition.nrc.family}"
-# }
-
 resource "aws_ecs_task_definition" "nrc" {
   family                   = "nrc_${var.docker_image_tag}"
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
@@ -61,8 +57,6 @@ DEFINITION
 resource "aws_ecs_service" "nrc" {
   name            = "nrc"
   cluster         = "${aws_ecs_cluster.nrc.arn}"
-  # iam_role        = "arn:aws:iam::489114792760:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
-  # task_definition = "${data.aws_ecs_task_definition.nrc.arn}"
   desired_count   = "${var.nrc_instance_count}"
 
   placement_constraints {
