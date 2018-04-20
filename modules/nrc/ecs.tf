@@ -74,6 +74,10 @@ data "aws_security_group" "ecs_nrc" {
   id = "sg-7789513e"
 }
 
+# data "aws_iam_instance_profile" "ecs_nrc" {
+#   name = "ingest_profile"
+# }
+
 resource "aws_instance" "ingest" {
   ami                    = "ami-aff65ad2"
   instance_type          = "m4.large"
@@ -82,6 +86,6 @@ resource "aws_instance" "ingest" {
 #!/bin/bash
 echo ECS_CLUSTER=${aws_ecs_cluster.nrc.name} >> /etc/ecs/ecs.config
 EOF
-  iam_instance_profile   = "${aws_iam_instance_profile.ingest.name}"
+  iam_instance_profile   = "ingest_profile"
   vpc_security_group_ids = ["${data.aws_security_group.ecs_nrc.id}"]
 }
