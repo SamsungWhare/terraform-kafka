@@ -66,57 +66,13 @@ resource "aws_ecs_service" "nrc" {
   task_definition = "${aws_ecs_task_definition.nrc.family}:${aws_ecs_task_definition.nrc.revision}"
 }
 
-resource "aws_iam_role" "ecs_ingest" {
+data "aws_iam_role" "ecs_ingest" {
   name = "ecs_ingest"
-  assume_role_policy = <<EOF
-{
-"Version": "2012-10-17",
-"Statement": [
-  {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "ec2.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
-  }
-]
-}
-EOF
-}
-
-resource "aws_iam_role_policy" "ecs_ingest" { 
-  name = "ecs_instance_role"
-  role = "${aws_iam_role.ecs_ingest.id}"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ecs:CreateCluster",
-        "ecs:DeregisterContainerInstance",
-        "ecs:DiscoverPollEndpoint",
-        "ecs:Poll",
-        "ecs:RegisterContainerInstance",
-        "ecs:StartTelemetrySession",
-        "ecs:Submit*",
-        "ecr:GetAuthorizationToken",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecs:StartTask"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOF
 }
 
 resource "aws_iam_instance_profile" "ingest" {
   name = "ingest_profile"
-  role = "${aws_iam_role.ecs_ingest.name}"
+  role = "${data.aws_iam_role.ecs_ingest.name}"
 }
 
 data "aws_security_group" "ecs_nrc" {
