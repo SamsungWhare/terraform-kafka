@@ -2,20 +2,20 @@ provider "aws" {
   region = "us-east-1"
 }
 
+private_key = "~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905"
+key_name    = "saurabh-throwaway"
+bastion_ip  = "54.210.22.199"
+
 module "kafka" {
     source = "../modules/kafka"
     
     environment = "fruit-loops"
 
-    # private_key="~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905"
-    # key_name = "saurabh-throwaway"
-    private_key = "~/Downloads/keylimepie.pem"
-    key_name = "keylimepie"
-
     num_partitions = 30
 
-    ///////
-    # zookeeper_addr = 50
+    private_key="${var.private_key}"
+    key_name = "${var.key_name}"
+    bastion_ip = "${var.bastion_ip}"
 }
 
 module "nrc" {

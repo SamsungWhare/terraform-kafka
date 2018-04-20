@@ -23,11 +23,6 @@ variable "brokers_per_az" {
   default     = 3
 }
 
-# variable "zookeeper_addr" {
-#   type        = "string"
-#   description = "network number for zookeeper IPs"
-# }
-
 variable "zookeeper_ami" {
   type        = "string"
   description = "AWS AMI for zookeeper"
