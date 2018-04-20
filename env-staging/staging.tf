@@ -38,7 +38,7 @@ module "nrc" {
 
     environment = "staging"
 
-    nrc_instance_count = 1
+    nrc_instance_count = 2
     docker_image_tag = "${var.image_tag}"
 
     // TODO: replace following with list of brokers when NRC is ready to accept it
