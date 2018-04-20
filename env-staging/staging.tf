@@ -23,7 +23,7 @@ module "kafka" {
     security_group_ids = ["sg-8ca35bc5"]
 
     # Bastion machine information where the SSH can happen
-    bastion_ip = "35.171.26.242"
+    bastion_ip = "54.210.22.199"
     bastion_user = "ec2-user"
     private_key="~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905"
 
