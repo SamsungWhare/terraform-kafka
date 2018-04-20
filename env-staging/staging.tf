@@ -23,13 +23,12 @@ module "kafka" {
     security_group_ids = ["sg-8ca35bc5"]
 
     # Bastion machine information where the SSH can happen
-    bastion_ip = "35.171.26.242"
-    bastion_private_key = "~/Downloads/keylimepie.pem"
+    bastion_ip = "54.210.22.199"
     bastion_user = "ec2-user"
-    private_key = "~/Downloads/keylimepie.pem"
+    private_key="~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905"
 
     # Kafka cluster configuration
-    key_name = "keylimepie"
+    key_name = "saurabh-throwaway"
     kafka_ami = "ami-1853ac65"
     kafka_instance_type = "m5.large"
     kafka_version = "1.1.0"
@@ -48,12 +47,9 @@ module "kafka" {
     cloudwatch_alarm_arn = "arn:aws:sns:us-east-1:489114792760:Kafka"
 }
 
-module "nrc" {
-    source = "../modules/nrc"
-
-    environment = "staging"
-
-    nrc_instance_count = 1
-    docker_image_tag = "staging"
-    kafka_brokers = "${module.kafka.first_kafka_broker}"
-}
+# module "nrc" {
+#     source = "../modules/nrc"
+#     environment = "staging"
+#     nrc_instance_count = 1
+#     docker_image_tag = "consumer_groups"
+#     kafka_brokers = "${module.kafka.first_kafka_broker}"

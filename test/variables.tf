@@ -66,10 +66,6 @@ variable "private_key_path" {
   type = "string"
 }
 
-variable "bastion_private_key_path" {
-  type = "string"
-}
-
 variable "cloudwatch_alarm_arn" {
   type = "string"
 }
