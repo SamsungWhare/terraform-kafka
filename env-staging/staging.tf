@@ -2,9 +2,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-private_key = "~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905"
-key_name    = "saurabh-throwaway"
-bastion_ip  = "54.210.22.199"
+variable private_key { default = "~/.ssh/id_rsa_fddc59216e07448564ee247e3fa42905" }
+variable key_name    { default = "saurabh-throwaway" }
+variable bastion_ip  { default = "54.210.22.199" }
 
 module "kafka" {
     source = "../modules/kafka"
