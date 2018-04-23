@@ -17,6 +17,12 @@ variable "nrc_instance_count" {
   default     = 1
 }
 
+variable "nrc_instance_type" {
+  description = "ec2 instance type"
+  type        = "string"
+  default     = "t2.medium"
+}
+
 variable "nrc_namespace" {
   type        = "string"
   description = "usually the git branch"

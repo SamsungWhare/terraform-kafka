@@ -9,7 +9,7 @@ variable "environment" {
 
 variable "app_name" {
   description = "application name"
-  default     = "kafka"
+  default     = "staging"
 }
 
 variable "availability_zone" {

@@ -80,7 +80,7 @@ data "aws_security_group" "ecs_nrc" {
 
 resource "aws_instance" "ingest" {
   ami                    = "ami-aff65ad2"
-  instance_type          = "m4.large"
+  instance_type          = "${var.nrc_instance_type}"
   availability_zone      = "us-east-1a"
   user_data              = <<EOF
 #!/bin/bash
