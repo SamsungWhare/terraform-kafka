@@ -18,13 +18,19 @@ variable "bastion_ip"  {
 
 variable "image_tag"   {
     type        = "string"
-    default     = "consumer_groups" 
+    default     = "consumer_groups"
+}
+
+variable "kafka_environment" {
+    type        = "string"
+    default     = "staging_default"
 }
 
 module "kafka" {
     source = "../modules/kafka"
     
-    environment = "${terraform.workspace}"
+    # environment = "${terraform.workspace}"
+    environment = "${var.kafka_environment}"
 
     num_partitions = 30
 
