@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "nrc" {
-  name = "nrc-${var.environment}-${terraform.workspace}"
+  name = "nrc-${var.environment}-${var.nrc_namespace}"
 }
 
 resource "aws_ecs_task_definition" "nrc" {

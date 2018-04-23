@@ -44,6 +44,7 @@ module "nrc" {
 
     environment = "staging"
 
+    nrc_namespace = "${var.kafka_environment}"
     nrc_instance_count = 1
     docker_image_tag = "${var.image_tag}"
 

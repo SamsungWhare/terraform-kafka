@@ -17,6 +17,12 @@ variable "nrc_instance_count" {
   default     = 1
 }
 
+variable "nrc_namespace" {
+  type        = "string"
+  description = "usually the git branch"
+  default     = "default"
+}
+
 variable "kafka_brokers" {
   type        = "string"
   description = "list of kafka brokers exported by the kafka module"

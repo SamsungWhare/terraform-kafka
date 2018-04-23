@@ -66,7 +66,7 @@ variable "kafka_user" {
 variable "kafka_instance_type" {
   type        = "string"
   description = "instance type for kafka server"
-  default     = "m5.large"
+  default     = "t2.medium"
 }
 
 variable "kafka_version" {
