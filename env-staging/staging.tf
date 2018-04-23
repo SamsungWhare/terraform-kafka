@@ -46,6 +46,7 @@ module "nrc" {
 
     nrc_namespace = "${var.kafka_environment}"
     nrc_instance_count = 1
+
     docker_image_tag = "${var.image_tag}"
 
     // TODO: replace following with list of brokers when NRC is ready to accept it
