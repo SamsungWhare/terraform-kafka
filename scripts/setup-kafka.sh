@@ -41,3 +41,23 @@ echo " " >> /tmp/server.properties
 echo "# replication factor" >> /tmp/server.properties
 echo "default.replication.factor=${repl_factor}" >> /tmp/server.properties
 mv /tmp/server.properties config/server.properties
+
+
+# configure aws cloudwatch agent for logs to be sent to cloudwatch
+# https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html
+
+# make the config file
+export aws_log_file=/opt/kafka/kafka_${scala_version}-${version}/logs/server.log
+
+cat > /etc/awslogs.conf << EOL
+[$aws_log_file]
+datetime_format = %Y-%m-%d %H:%M:%S
+file = $aws_log_file
+buffer_duration = 5000
+log_stream_name = {hostname}
+initial_position = end_of_file
+log_group_name = kafka
+EOL
+
+curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
+sudo python ./awslogs-agent-setup.py --region us-east-1 --non-interactive --configfile /etc/awslogs/awslogs.conf
