@@ -33,4 +33,8 @@ resource "aws_instance" "kafka-server" {
   tags {
     Name = "${var.environment}-${var.app_name}-kafka-${format("%02d", count.index+1)}"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
