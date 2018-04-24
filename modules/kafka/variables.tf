@@ -12,12 +12,6 @@ variable "app_name" {
   default     = "staging"
 }
 
-variable "availability_zone" {
-  type        = "string"
-  description = "specific availability zone"
-  default     = "us-east-1a"
-}
-
 variable "brokers_per_az" {
   description = "number of Kafka brokers per AZ"
   default     = 3
@@ -110,24 +104,6 @@ variable "log_retention" {
   default     = 168
 }
 
-variable "subnet_ids" {
-  type        = "list"
-  description = "list of subnet IDs"
-  default     = ["subnet-c19f3bee"]
-}
-
-variable "static_subnet_ids" {
-  type        = "list"
-  description = "list of subnet IDs for static IPs (/24 CIDR)"
-  default     = ["subnet-c19f3bee"]
-}
-
-variable "security_group_ids" {
-  type        = "list"
-  description = "list of security group IDs"
-  default     = ["sg-8ca35bc5"]
-}
-
 variable "iam_instance_profile" {
   type        = "string"
   description = "IAM instance profile"
@@ -156,8 +132,8 @@ variable "bastion_user" {
   default     = "ec2-user"
 }
 
-variable "cloudwatch_alarm_arn" {
-  type        = "string"
-  description = "cloudwatch alarm ARN"
-  default     = "arn:aws:sns:us-east-1:489114792760:Kafka"
-}
+# variable "cloudwatch_alarm_arn" {
+#   type        = "string"
+#   description = "cloudwatch alarm ARN"
+#   default     = "arn:aws:sns:us-east-1:489114792760:Kafka"
+# }

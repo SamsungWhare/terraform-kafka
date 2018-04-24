@@ -55,8 +55,6 @@ data template_file "kafka-ctl" {
   }
 }
 
-data "aws_region" "current" {}
-
 data template_file "zookeeper-status" {
   template = "${file("${path.cwd}/../scripts/process-status.sh")}"
 

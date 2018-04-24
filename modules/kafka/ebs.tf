@@ -11,6 +11,6 @@ resource "aws_volume_attachment" "ebs" {
 
 resource "aws_ebs_volume" "staging" {
   count             = 3
-  availability_zone = "${var.availability_zone}"
+  availability_zone = "${data.aws_availability_zones.available.names[0]}"
   size              = 1
 }

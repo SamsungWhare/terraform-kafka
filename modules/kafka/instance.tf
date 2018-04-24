@@ -6,8 +6,8 @@ resource "aws_instance" "zookeeper-server" {
   count                  = "${data.aws_subnet.static-subnet.count}"
   ami                    = "${var.zookeeper_ami}"
   instance_type          = "${var.zookeeper_instance_type}"
-  vpc_security_group_ids = ["${var.security_group_ids}"]
-  subnet_id              = "${var.static_subnet_ids[count.index]}"
+  vpc_security_group_ids = ["${data.aws_security_group.default.id}"]
+  subnet_id              = "${data.aws_subnet.static-subnet.id}"
   iam_instance_profile   = "${var.iam_instance_profile}"
   key_name               = "${var.key_name}"
 
@@ -24,8 +24,8 @@ resource "aws_instance" "kafka-server" {
   count                  = "${var.brokers_per_az * data.aws_subnet.subnet.count}"
   ami                    = "${var.kafka_ami}"
   instance_type          = "${var.kafka_instance_type}"
-  vpc_security_group_ids = ["${var.security_group_ids}"]
-  subnet_id              = "${var.subnet_ids[count.index % data.aws_subnet.subnet.count]}"
+  vpc_security_group_ids = ["${data.aws_security_group.default.id}"]
+  subnet_id              = "${data.aws_subnet.subnet.id}"
   iam_instance_profile   = "${var.iam_instance_profile}"
   key_name               = "${var.key_name}"
   user_data              = "${data.template_file.mount-volumes.rendered}"
