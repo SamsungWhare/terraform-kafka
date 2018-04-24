@@ -60,4 +60,4 @@ log_group_name = kafka
 EOL
 
 curl https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py -O
-sudo python ./awslogs-agent-setup.py --region us-east-1 --non-interactive --configfile /etc/awslogs/awslogs.conf
+sudo python ./awslogs-agent-setup.py --region us-east-1 --non-interactive --configfile /etc/awslogs.conf
