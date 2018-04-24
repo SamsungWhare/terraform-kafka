@@ -48,8 +48,11 @@ mv /tmp/server.properties config/server.properties
 
 # make the config file
 export aws_log_file=/opt/kafka/kafka_${scala_version}-${version}/logs/server.log
-
+sudo mkdir /var/awslogs
+sudo mkdir /var/awslogs/state
 cat > /etc/awslogs.conf << EOL
+[general]
+state_file = /var/awslogs/state/agent-state
 [$aws_log_file]
 datetime_format = %Y-%m-%d %H:%M:%S
 file = $aws_log_file
