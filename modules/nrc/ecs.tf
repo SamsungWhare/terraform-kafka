@@ -88,4 +88,8 @@ echo ECS_CLUSTER=${aws_ecs_cluster.nrc.name} >> /etc/ecs/ecs.config
 EOF
   iam_instance_profile   = "ingest_profile"
   vpc_security_group_ids = ["${data.aws_security_group.ecs_nrc.id}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
