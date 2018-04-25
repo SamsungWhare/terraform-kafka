@@ -7,8 +7,6 @@ resource "aws_ecs_task_definition" "nrc" {
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   network_mode             = "bridge"
-  cpu                      = 2048
-  memory                   = 4096
   requires_compatibilities = ["EC2"]
   container_definitions = <<DEFINITION
 [
