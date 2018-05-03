@@ -8,12 +8,6 @@ variable "redis_tag_environment" {
   description = "Tag environment for the Redis cluster"
 }
 
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-parameter-group.html
-variable "redis_parameter_group_name" {
-  type        = "string"
-  description = "Parameter Group for ElastiCache"
-}
-
 variable "redis_cluster_id" {
   type        = "string"
   description = "Redis cluster identifier"

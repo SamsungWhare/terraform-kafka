@@ -38,13 +38,6 @@ variable "redis_tag_environment" {
   default     = "stg-env"
 }
 
-# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-parameter-group.html
-variable "redis_parameter_group_name" {
-  type        = "string"
-  description = "Parameter Group for ElastiCache"
-  default     = "stg-prm-gp"
-}
-
 variable "redis_cluster_id" {
   type        = "string"
   description = "Redis cluster identifier"
@@ -85,5 +78,4 @@ module "redis" {
   redis_cluster_id = "${var.redis_cluster_id}"
   redis_tag_environment = "${var.redis_tag_environment}"
   redis_tag_name = "${var.redis_tag_name}"
-  redis_parameter_group_name = "${var.redis_parameter_group_name}"  
 }
