@@ -21,16 +21,16 @@ variable "image_tag"   {
     default     = "consumer_groups"
 }
 
-variable "kafka_environment" {
+variable "environment" {
     type        = "string"
-    default     = "staging_default"
+    default     = "staging-default"
 }
 
 module "kafka" {
     source = "../modules/kafka"
     
     # environment = "${terraform.workspace}"
-    environment = "${var.kafka_environment}"
+    environment = "${var.environment}"
 
     num_partitions = 30
 
@@ -44,11 +44,18 @@ module "nrc" {
 
     environment = "staging"
 
-    nrc_namespace = "${var.kafka_environment}"
+    nrc_namespace = "${var.environment}"
     nrc_instance_count = 1
 
     docker_image_tag = "${var.image_tag}"
 
     // TODO: replace following with list of brokers when NRC is ready to accept it
     kafka_brokers = "${module.kafka.first_kafka_broker}"
+}
+
+module "redis" {
+  
+  source = "../modules/redis"
+  
+  environment = "${var.environment}"
 }
