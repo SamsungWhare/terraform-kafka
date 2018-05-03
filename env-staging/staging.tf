@@ -26,6 +26,31 @@ variable "kafka_environment" {
     default     = "staging_default"
 }
 
+variable "redis_tag_name" {
+  type        = "string"
+  description = "Tag name for the Redis cluster"
+  default     = "stg-redis"
+}
+
+variable "redis_tag_environment" {
+  type        = "string"
+  description = "Tag environment for the Redis cluster"
+  default     = "stg-env"
+}
+
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-parameter-group.html
+variable "redis_parameter_group_name" {
+  type        = "string"
+  description = "Parameter Group for ElastiCache"
+  default     = "stg-prm-gp"
+}
+
+variable "redis_cluster_id" {
+  type        = "string"
+  description = "Redis cluster identifier"
+  default     = "stg-cluster"
+}
+
 module "kafka" {
     source = "../modules/kafka"
     
@@ -51,4 +76,14 @@ module "nrc" {
 
     // TODO: replace following with list of brokers when NRC is ready to accept it
     kafka_brokers = "${module.kafka.first_kafka_broker}"
+}
+
+module "redis" {
+  
+  source = "../modules/redis"
+  
+  redis_cluster_id = "${var.redis_cluster_id}"
+  redis_tag_environment = "${var.redis_tag_environment}"
+  redis_tag_name = "${var.redis_tag_name}"
+  redis_parameter_group_name = "${var.redis_parameter_group_name}"  
 }

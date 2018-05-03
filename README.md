@@ -52,3 +52,8 @@ Set environment variables prefixed with `TF_VAR_`. e.g.
 export TF_VAR_private_key="~/Downloads/keylimepie.pem"
 export TF_VAR_key_name="keylimepie"
 export TF_VAR_bastion_ip="35.171.26.242"
+export TF_VAR_redis_cluster_id="myrediscluster"
+export TF_VAR_redis_tag_name="myredistag"
+export TF_VAR_redis_tag_environment="myredisenv"
+
+
