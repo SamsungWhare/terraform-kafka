@@ -21,34 +21,16 @@ variable "image_tag"   {
     default     = "consumer_groups"
 }
 
-variable "kafka_environment" {
+variable "environment" {
     type        = "string"
-    default     = "staging_default"
-}
-
-variable "redis_tag_name" {
-  type        = "string"
-  description = "Tag name for the Redis cluster"
-  default     = "stg-redis"
-}
-
-variable "redis_tag_environment" {
-  type        = "string"
-  description = "Tag environment for the Redis cluster"
-  default     = "stg-env"
-}
-
-variable "redis_cluster_id" {
-  type        = "string"
-  description = "Redis cluster identifier"
-  default     = "stg-cluster"
+    default     = "staging-default"
 }
 
 module "kafka" {
     source = "../modules/kafka"
     
     # environment = "${terraform.workspace}"
-    environment = "${var.kafka_environment}"
+    environment = "${var.environment}"
 
     num_partitions = 30
 
@@ -62,7 +44,7 @@ module "nrc" {
 
     environment = "staging"
 
-    nrc_namespace = "${var.kafka_environment}"
+    nrc_namespace = "${var.environment}"
     nrc_instance_count = 1
 
     docker_image_tag = "${var.image_tag}"
@@ -75,7 +57,5 @@ module "redis" {
   
   source = "../modules/redis"
   
-  redis_cluster_id = "${var.redis_cluster_id}"
-  redis_tag_environment = "${var.redis_tag_environment}"
-  redis_tag_name = "${var.redis_tag_name}"
+  environment = "${var.environment}"
 }
