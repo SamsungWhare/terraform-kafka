@@ -1,7 +1,3 @@
-data "aws_db_instance" "api" {
-  db_instance_identifier = "apidevdb"
-}
-
 data "aws_secretsmanager_secret" "api_dev_db" {
   name = "api_dev_db_access"
 }
