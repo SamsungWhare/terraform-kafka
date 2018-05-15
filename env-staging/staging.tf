@@ -18,12 +18,12 @@ variable "bastion_ip"  {
 
 variable "image_tag"   {
     type        = "string"
-    default     = "consumer_groups"
+    default     = "latest"
 }
 
 variable "environment" {
     type        = "string"
-    default     = "staging-default"
+    default     = "funk"
 }
 
 module "kafka" {
@@ -39,23 +39,26 @@ module "kafka" {
     bastion_ip = "${var.bastion_ip}"
 }
 
-module "nrc" {
-    source = "../modules/nrc"
+module "ecs" {
+    source = "../modules/ecs"
 
     environment = "staging"
 
-    nrc_namespace = "${var.environment}"
+    namespace = "${var.environment}"
     nrc_instance_count = 1
+    api_instance_count = 1
 
-    docker_image_tag = "${var.image_tag}"
+    nrc_docker_image_tag = "${var.image_tag}"
+    # api_docker_image_tag = "${var.image_tag}" // defaults to `latest`
 
-    // TODO: replace following with list of brokers when NRC is ready to accept it
+    // TODO: replace following with list of addresses when NRC/api is ready to accept it
     kafka_brokers = "${module.kafka.first_kafka_broker}"
+    zk_host = "${module.kafka.first_zk_addr}"
+    redis_host = "${module.redis.redis_nodes}"
 }
 
-module "redis" {
-  
+module "redis" {  
   source = "../modules/redis"
-  
+
   environment = "${var.environment}"
 }
