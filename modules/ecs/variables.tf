@@ -18,6 +18,11 @@ variable "environment" {
   description = "prod | staging"
 }
 
+variable "kafka_brokers" {
+  type        = "string"
+  description = "list of kafka brokers exported by the kafka module"
+}
+
 variable "namespace" {
   type        = "string"
   description = "usually the git branch"
@@ -41,8 +46,12 @@ variable "nrc_instance_type" {
   default     = "t2.medium"
 }
 
-variable "kafka_brokers" {
+variable "redis_host" {
   type        = "string"
-  description = "list of kafka brokers exported by the kafka module"
+  description = "Redis host exported by redis module"
 }
 
+variable "zk_host" {
+  type        = "string"
+  description = "Zookeeper host exported by kafka module"
+}

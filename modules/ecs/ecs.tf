@@ -6,7 +6,7 @@ resource "aws_ecs_task_definition" "api" {
   family                   = "api_${var.api_docker_image_tag}"
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
-  network_mode             = "bridge"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["EC2"]
   container_definitions = <<DEFINITION
 [
@@ -17,6 +17,9 @@ resource "aws_ecs_task_definition" "api" {
     "memory": 1024,
     "environment": [
       { "name": "NRC_HOST", "value": "http://nrc.whare-dev.com" },
+      { "name": "REDIS_HOST", "value": "${var.redis_host}" },
+      { "name": "KAFKA_BROKER", "value": "${var.kafka_brokers}" },
+      { "name": "ZOOKEEPER_HOST", "value": "${var.zk_host}" },
       { "name": "VIRTUAL_OBJECT_ASSET_S3_BUCKET", "value": "whare-models-dev" },
       { "name": "API_DB_HOST", "value": "${data.aws_db_instance.api.address}" },
       { "name": "API_DB_NAME", "value": "apidb" },
@@ -56,7 +59,7 @@ resource "aws_ecs_task_definition" "nrc" {
   family                   = "nrc_${var.nrc_docker_image_tag}"
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
-  network_mode             = "bridge"
+  network_mode             = "awsvpc"
   requires_compatibilities = ["EC2"]
   container_definitions = <<DEFINITION
 [
@@ -112,6 +115,11 @@ resource "aws_ecs_service" "api" {
     expression = "attribute:ecs.availability-zone in [us-east-1a]"
   }
   task_definition = "${aws_ecs_task_definition.api.family}:${aws_ecs_task_definition.api.revision}"
+
+  network_configuration {
+    subnets = ["subnet-c19f3bee"]
+    security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
+  }
 }
 
 resource "aws_ecs_service" "nrc" {
@@ -124,6 +132,11 @@ resource "aws_ecs_service" "nrc" {
     expression = "attribute:ecs.availability-zone in [us-east-1a]"
   }
   task_definition = "${aws_ecs_task_definition.nrc.family}:${aws_ecs_task_definition.nrc.revision}"
+
+  network_configuration {
+    subnets = ["subnet-c19f3bee"]
+    security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
+  }
 }
 
 data "aws_iam_role" "ecs_ingest" {

@@ -51,8 +51,10 @@ module "ecs" {
     nrc_docker_image_tag = "${var.image_tag}"
     # api_docker_image_tag = "${var.image_tag}" // defaults to `latest`
 
-    // TODO: replace following with list of brokers when NRC is ready to accept it
+    // TODO: replace following with list of addresses when NRC/api is ready to accept it
     kafka_brokers = "${module.kafka.first_kafka_broker}"
+    zk_host = "${module.kafka.first_zk_addr}"
+    redis_host = "${module.redis.redis_nodes}"
 }
 
 module "redis" {  
