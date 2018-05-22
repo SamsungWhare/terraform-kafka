@@ -136,6 +136,7 @@ resource "aws_ecs_service" "nrc" {
   network_configuration {
     subnets = ["subnet-c19f3bee"]
     security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
+    assign_public_ip = true
   }
 }
 
@@ -160,6 +161,7 @@ resource "aws_instance" "ingest" {
 #!/bin/bash
 echo ECS_CLUSTER=${aws_ecs_cluster.instance.name} >> /etc/ecs/ecs.config
 EOF
+
   iam_instance_profile        = "ingest_profile"
   vpc_security_group_ids      = ["${data.aws_security_group.ecs_nrc.id}"]
 
