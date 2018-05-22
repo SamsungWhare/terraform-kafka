@@ -153,6 +153,7 @@ resource "aws_instance" "ingest" {
   count                  = "${var.api_instance_count + var.nrc_instance_count}"
   ami                    = "ami-aff65ad2"
   instance_type          = "${var.nrc_instance_type}"
+  key_name               = "${var.key_name}"
   availability_zone      = "us-east-1a"
   user_data              = <<EOF
 #!/bin/bash
@@ -160,6 +161,10 @@ echo ECS_CLUSTER=${aws_ecs_cluster.instance.name} >> /etc/ecs/ecs.config
 EOF
   iam_instance_profile   = "ingest_profile"
   vpc_security_group_ids = ["${data.aws_security_group.ecs_nrc.id}"]
+
+  tags {
+    Name = "ECS--${aws_ecs_cluster.instance.name}"
+  }
 
   lifecycle {
     create_before_destroy = true
