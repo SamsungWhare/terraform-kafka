@@ -6,7 +6,7 @@ resource "aws_ecs_task_definition" "api" {
   family                   = "api_${var.api_docker_image_tag}"
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
-  network_mode             = "awsvpc"
+  network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
   container_definitions = <<DEFINITION
 [
@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "nrc" {
   family                   = "nrc_${var.nrc_docker_image_tag}"
   task_role_arn            = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
   execution_role_arn       = "arn:aws:iam::489114792760:role/ecsTaskExecutionRole"
-  network_mode             = "awsvpc"
+  network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
   container_definitions = <<DEFINITION
 [
@@ -136,7 +136,6 @@ resource "aws_ecs_service" "nrc" {
   network_configuration {
     subnets = ["subnet-c19f3bee"]
     security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
-    assign_public_ip = true
   }
 }
 
@@ -156,7 +155,7 @@ resource "aws_instance" "ingest" {
   instance_type               = "${var.nrc_instance_type}"
   key_name                    = "${var.key_name}"
   availability_zone           = "us-east-1a"
-  associate_public_ip_address = true
+
   user_data                   = <<EOF
 #!/bin/bash
 echo ECS_CLUSTER=${aws_ecs_cluster.instance.name} >> /etc/ecs/ecs.config
