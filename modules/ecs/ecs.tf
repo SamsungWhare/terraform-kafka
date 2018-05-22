@@ -116,10 +116,10 @@ resource "aws_ecs_service" "api" {
   }
   task_definition = "${aws_ecs_task_definition.api.family}:${aws_ecs_task_definition.api.revision}"
 
-  network_configuration {
-    subnets = ["subnet-c19f3bee"]
-    security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
-  }
+  # network_configuration {
+  #   subnets = ["subnet-c19f3bee"]
+  #   security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
+  # }
 }
 
 resource "aws_ecs_service" "nrc" {
@@ -133,10 +133,10 @@ resource "aws_ecs_service" "nrc" {
   }
   task_definition = "${aws_ecs_task_definition.nrc.family}:${aws_ecs_task_definition.nrc.revision}"
 
-  network_configuration {
-    subnets = ["subnet-c19f3bee"]
-    security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
-  }
+  # network_configuration {
+  #   subnets = ["subnet-c19f3bee"]
+  #   security_groups = ["${data.aws_security_group.ecs_nrc.id}"]
+  # }
 }
 
 data "aws_iam_role" "ecs_ingest" {
