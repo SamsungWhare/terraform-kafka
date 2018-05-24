@@ -53,8 +53,10 @@ module "ecs" {
 
     key_name = "${var.key_name}"
 
+    kafka_brokers = "${module.kafka.kafka_brokers_list}"
     // TODO: replace following with list of addresses when NRC/api is ready to accept it
-    kafka_brokers = "${module.kafka.first_kafka_broker}"
+    kafka_first_broker = "${module.kafka.first_kafka_broker}"
+
     zk_host = "${module.kafka.first_zk_addr}"
     redis_host = "${module.redis.redis_nodes}"
 }

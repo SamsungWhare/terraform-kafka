@@ -23,6 +23,11 @@ variable "kafka_brokers" {
   description = "list of kafka brokers exported by the kafka module"
 }
 
+variable "kafka_first_broker" {
+  type        = "string"
+  description = "first kafka broker exported by the kafka module"
+}
+
 variable "key_name" {
   type        = "string"
   description = "key pair for SSH access"
