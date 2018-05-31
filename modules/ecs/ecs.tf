@@ -18,7 +18,7 @@ resource "aws_ecs_task_definition" "api" {
     "environment": [
       { "name": "NRC_HOST", "value": "http://nrc.whare-dev.com" },
       { "name": "REDIS_HOST", "value": "${var.redis_host}" },
-      { "name": "KAFKA_BROKER", "value": "${var.kafka_brokers}" },
+      { "name": "KAFKA_BROKER", "value": "${var.kafka_first_broker}" },
       { "name": "ZOOKEEPER_HOST", "value": "${var.zk_host}" },
       { "name": "VIRTUAL_OBJECT_ASSET_S3_BUCKET", "value": "whare-models-dev" },
       { "name": "API_DB_HOST", "value": "${data.aws_db_instance.api.address}" },
@@ -89,8 +89,12 @@ resource "aws_ecs_task_definition" "nrc" {
       "server",
       "-port",
       "61022",
-      "-kafkabroker",
-      "${var.kafka_brokers}"
+      "-kafkabrokers",
+      "${var.kafka_brokers}",
+      "-redishost",
+      "${var.redis_host}",
+      "-zkservers",
+      "${var.zk_host}"
     ],
     "logConfiguration": {
       "logDriver": "awslogs",
